@@ -11,17 +11,15 @@ module.exports = function(fileStructure, meta) {
 
   var testsFolder = FSUtils.fsFindByPath(fileStructure, ["suites"]);
 
-  // first pass through, make the folders and the suites...
+  // make folders and the suites...
   treeUtils.walkThroughTreeNodes(meta.directory, (node, parentNode) => {
 
     var entityType = isFolder(node) ? "folder" : node.type;
+
+    // If the root node, ignore it.
     if (node.root || (entityType !== "test" && entityType !== "folder")) return;
 
-    var entityName = generateSuiteName(node, meta.tests);
-
-    var fsEntity = {
-      path: testsFolder.path.concat(generateNodePath(node, entityName + ".cs"))
-    };
+    var fsEntity;
 
     // ***** Generate Suite files: *****
 
@@ -40,7 +38,14 @@ module.exports = function(fileStructure, meta) {
       });
 
       if (!hasInnerFolder) {
-        fsEntity.file = generateSuite(entityName, innerTests, meta);
+        fsEntity = {
+          path: testsFolder.path.concat(generateNodePath(node, generateSuiteName(node, meta.tests))),
+          file: generateSuite(generateSuiteName(node, meta.tests), innerTests, meta)
+        }
+      } else {
+        fsEntity = {
+          path: testsFolder.path.concat(generateNodePath(node, generateFolderName(node, meta.tests)))
+        }
       }
 
     } else if (entityType === "test") {
@@ -57,7 +62,10 @@ module.exports = function(fileStructure, meta) {
       }
 
       if (hasAdjacentFolder) {
-        fsEntity.file = generateSuite(entityName, [_.find(meta.tests, {id: node.testId})], meta);
+        fsEntity = {
+          path: testsFolder.path.concat(generateNodePath(node, generateSuiteName(node, meta.tests))),
+          file: generateSuite(generateSuiteName(node, meta.tests), [_.find(meta.tests, {id: node.testId})], meta)
+        }
       } else {
         return; // Already processed when generating suite contents.
       }
@@ -74,7 +82,12 @@ isFolder = (node) => _.isArray(node.children);
 
 generateSuiteName = (node, tests) => {
   var nodeName = isFolder(node) ? node.module : _.find(tests, {id: node.testId}).name;
-  return sanitizeForFilename(nodeName).replace(/\W|_/g, "") + "Suite";
+  return sanitizeForFilename(nodeName).replace(/\W|_/g, "") + "Suite.cs";
+};
+
+generateFolderName = (node, tests) => {
+  var nodeName = isFolder(node) ? node.module : _.find(tests, {id: node.testId}).name;
+  return sanitizeForFilename(nodeName).replace(/\W|_/g, "");
 };
 
 generateNodePath = (node, nodeName) => {
@@ -82,7 +95,7 @@ generateNodePath = (node, nodeName) => {
   var path = [nodeName];
 
   treeUtils.walkUpParents(node, (parent) => {
-    if (!parent.root) path.unshift(sanitizeForFilename(parent.module));
+    if (!parent.root) path.unshift(generateFolderName(parent, parent.module));
   });
 
   return path;
@@ -91,4 +104,4 @@ generateNodePath = (node, nodeName) => {
 
 getTestFromNode = (node, tests) => {
   return _.find(tests, {id: node.testId});
-}
+};

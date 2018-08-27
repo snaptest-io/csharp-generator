@@ -1,6 +1,6 @@
 # SnapTest C# NUnit Test Generator
 
-Generates test folders in C# using the NUnit framework via the[snaptest-cli](https://www.npmjs.com/package/snaptest-cli).
+Generates test folders in C# using the NUnit framework via the [snaptest-cli](https://www.npmjs.com/package/snaptest-cli).
 
 Master branch is published to npm and used in snaptest-cli as official csharpnunit generator when the `-r csharpnunit` flag is used.
 
