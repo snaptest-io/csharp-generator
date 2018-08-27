@@ -1,0 +1,19 @@
+{
+  "name": "csharpnunit-generator",
+  "version": "1.0.0",
+  "description": "SnapTest's C# NUnit generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snaptest-io/csharpnunit-generator.git"
+  },
+  "author": "Prolific Devs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snaptest-io/csharpnunit-generator/issues"
+  },
+  "homepage": "https://github.com/snaptest-io/csharpnunit-generator#readme"
+}
