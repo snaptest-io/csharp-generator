@@ -39,7 +39,7 @@ module.exports = function(fileStructure, meta) {
 
       if (!hasInnerFolder) {
         fsEntity = {
-          path: testsFolder.path.concat(generateNodePath(node, generateSuiteName(node, meta.tests))),
+          path: testsFolder.path.concat(generateNodePath(node, generateSuiteName(node, meta.tests) + ".cs")),
           file: generateSuite(generateSuiteName(node, meta.tests), innerTests, meta)
         }
       } else {
@@ -63,7 +63,7 @@ module.exports = function(fileStructure, meta) {
 
       if (hasAdjacentFolder) {
         fsEntity = {
-          path: testsFolder.path.concat(generateNodePath(node, generateSuiteName(node, meta.tests))),
+          path: testsFolder.path.concat(generateNodePath(node, generateSuiteName(node, meta.tests) + ".cs")),
           file: generateSuite(generateSuiteName(node, meta.tests), [_.find(meta.tests, {id: node.testId})], meta)
         }
       } else {
@@ -82,7 +82,7 @@ isFolder = (node) => _.isArray(node.children);
 
 generateSuiteName = (node, tests) => {
   var nodeName = isFolder(node) ? node.module : _.find(tests, {id: node.testId}).name;
-  return sanitizeForFilename(nodeName).replace(/\W|_/g, "") + "Suite.cs";
+  return sanitizeForFilename(nodeName).replace(/\W|_/g, "") + "Suite";
 };
 
 generateFolderName = (node, tests) => {
