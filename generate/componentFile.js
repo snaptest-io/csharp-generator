@@ -12,7 +12,7 @@ module.exports = function(fileStructure, meta) {
 
   var componentsFolder = FSUtils.fsFindByPath(fileStructure, ["components"]);
 
-  var driverString = fs.readFileSync(__dirname + "/../templates/SnapComponents.cs", 'utf8');
+  var driverString = fs.readFileSync(`${__dirname}/../templates/${meta.style}/SnapComponents.cs`, 'utf8');
 
   var rendered = ejs.render(driverString, {
     components: meta.components.map((component) => ({

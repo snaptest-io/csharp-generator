@@ -1,8 +1,10 @@
-# SnapTest C# NUnit Test Generator
+# SnapTest C# Test Generator
 
-Generates SnapTest Suites in C# & NUnit via the [snaptest-cli](https://www.npmjs.com/package/snaptest-cli).
+Generates SnapTest Suites in C# via the [snaptest-cli](https://www.npmjs.com/package/snaptest-cli).
 
-***If you are just getting started, use the [C# project harness](https://github.com/snaptest-io/csharpnunit-harness) to get up and running quickly.*** 
+***If you are just getting started, use one of the following harnesses/scaffolds to get started:***
+1. ***[C# project NUNIT harness](https://github.com/snaptest-io/csharpnunit-harness)***
+1. ***[C# project XUNUT harness](https://github.com/snaptest-io/csharpxunit-harness)***
 
 Contributions in the forms of PRs and tickets are welcome.
 

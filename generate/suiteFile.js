@@ -6,7 +6,9 @@ var fs = require('fs-extra');
 
 
 module.exports = function(suiteName, tests, meta) {
-  var driverString = fs.readFileSync(__dirname + "/../templates/SnapSuite.cs", 'utf8');
+
+  var driverString = fs.readFileSync(`${__dirname}/../templates/${meta.style}/SnapSuite.cs`, 'utf8');
+
   var rendered = ejs.render(driverString, {
     tests: tests.map((test) => {
       return {

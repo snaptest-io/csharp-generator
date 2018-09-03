@@ -3,7 +3,7 @@ var generateComponents = require('./generate/componentFile');
 var generateSuites = require('./generate/fileStructure');
 var copyStatic = require('./copyStatic');
 
-module.exports.generate = function() {
+function generate() {
 
   // Basic folder layout:
   var fileStructure = [
@@ -22,4 +22,9 @@ module.exports.generate = function() {
 
   this.onComplete();
 
+};
+
+module.exports = {
+  generate: generate,
+  styles: ["nunit", "xunit"]
 };
