@@ -139,9 +139,11 @@ var actions = {
   "COMPONENT": {
     render: (action, description, meta) => {
       var component = _.find(meta.components, {id: action.componentId});
+
+      if (!component) return "";
       return `
        components.${component.name}(${buildComponentActionParams(action, component)});
-      `
+      `;
     }
   }
 };
