@@ -1,6 +1,6 @@
 /* *************************************
   Generate Files
-    - Takes the file structure and files and makes real fiels/folders on the FS
+    - Takes the file structure and files and makes real files/folders on the FS
 **************************************** */
 var Path = require('path');
 var mkdirp = require("mkdirp");
